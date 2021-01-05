@@ -3,25 +3,25 @@ let players = [
     {
         userName: 'Antonis',
         color: 'red',
-        positions: [1,4,0,0],
+        positions: [0,0,0,0],
         allAtHome: true
     },
     {
         userName: 'James',
         color: 'green',
-        positions: [10,0,9,0],
+        positions: [0,0,0,0],
         allAtHome: true
     },
     {
         userName: 'Nikolaos',
         color: 'yellow',
-        positions: [0,0,0,0],
+        positions: [0,0,20,10],
         allAtHome: true
     },
     {
         userName: 'Pio',
         color: 'blue',
-        positions: [0,0,0,0],
+        positions: [3,2,3,4],
         allAtHome: true
     }
 ];
@@ -45,16 +45,19 @@ function diceChecker(dice) {
 
 //Part 2: DOM Manipulation
 function render () {
+    //alert('Hey Render start to run!');
     for (let index = 0; index < players.length; index++) {
         const element = players[index];
         
-        for (let index = 0; index < element.positions.length; index++) {
-            const item = element.positions[index];
-            if (item > 0) {
-                    document.getElementById('pos'+item).innerHTML = '<i class="fas fa-chess-pawn"></i>';
-                    document.getElementById('pos'+item).classList.add(element.color);
-                    document.getElementById('pos'+item).classList.remove('white');
+        for (let i = 0; i < element.positions.length; i++) {
+            const position = element.positions[i];
+            if (position > 0) {
+                    document.getElementById('pos'+position).innerHTML = '<i class="fas fa-chess-pawn"></i>';
+                    document.getElementById('pos'+position).classList.add(element.color);
+                    document.getElementById('pos'+position).classList.remove('white');
                 
+            } else {
+                    document.getElementById('initial-'+element.color+'-'+i).innerHTML = '<i class="fas fa-chess-pawn"></i>';
             }
         }
     }
