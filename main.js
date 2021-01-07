@@ -21,12 +21,12 @@ let players = [
     {
         userName: 'Pio',
         color: 'blue',
-        positions: [1,0,0,0],
+        positions: [0,0,0,0],
         allAtHome: true
     }
 ];
 
-
+const initialState = document.getElementById('main-board').innerHTML;
 
 let currentPlayer = 0;
 
@@ -36,12 +36,19 @@ function rollDice() {
     return dice;
 }
 
+function movePawn(player, pawnIndex, dice) {
+    players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
+}
+
 function diceChecker(dice) {
     if (dice < 6 && players[currentPlayer]['allAtHome']) {
         alert('Hey '+ players[currentPlayer]['userName'] +' Please wait for 6! You have ' + dice);
     } else if (dice == 6 && players[currentPlayer]['allAtHome']) { //First 6
         players[currentPlayer]['positions'] = [1,0,0,0];
+        players[currentPlayer].allAtHome = false;
         alert('Congrats you can go out!');
+    } else if (dice <=6  && !players[currentPlayer]['allAtHome']) {
+        movePawn(currentPlayer, 0, dice);
     }
 }
 
@@ -55,6 +62,7 @@ function diceChecker(dice) {
 
 
 function render () {
+    document.getElementById('main-board').innerHTML = initialState;
     //alert('Hey Render start to run!');
     for (let index = 0; index < players.length; index++) {
         const element = players[index];
@@ -62,10 +70,18 @@ function render () {
         for (let i = 0; i < element.positions.length; i++) {
             const position = element.positions[i];
             if (position > 0) {
+
+                    
+
                     document.getElementById('pos'+position).innerHTML = '<i class="fas fa-chess-pawn"></i>';
-                    document.getElementById('pos'+position).classList.add(element.color);
+                    
+                    console.log(document.getElementById('pos'+position).classList);
                     document.getElementById('pos'+position).classList.remove('white');
-                
+                    document.getElementById('pos'+position).classList.remove('red');
+                    document.getElementById('pos'+position).classList.remove('green');
+                    document.getElementById('pos'+position).classList.remove('yellow');
+                    document.getElementById('pos'+position).classList.remove('blue');
+                    document.getElementById('pos'+position).classList.add(element.color);
             } else {
                     document.getElementById('initial-'+element.color+'-'+i).innerHTML = '<i class="fas fa-chess-pawn"></i>';
             }
@@ -73,10 +89,11 @@ function render () {
     }
 }
 
+
 render();
 
 function showDice() {
     //alert(rollDice());
-    //diceChecker(rollDice());
+    diceChecker(rollDice());
     render();
 }
