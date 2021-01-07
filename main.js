@@ -29,6 +29,7 @@ let players = [
 const initialState = document.getElementById('main-board').innerHTML;
 
 let currentPlayer = 0;
+let currentPawn;
 
 function rollDice() {
     const dice =  Math.floor(Math.random() * 6) + 1;
@@ -47,10 +48,17 @@ function diceChecker(dice) {
         players[currentPlayer]['positions'] = [1,0,0,0];
         players[currentPlayer].allAtHome = false;
         alert('Congrats you can go out!');
-    } else if (dice <=6  && !players[currentPlayer]['allAtHome']) {
+    } else if (dice < 6  && !players[currentPlayer]['allAtHome']) {
         movePawn(currentPlayer, 0, dice);
+    } else if (dice == 6  && !players[currentPlayer]['allAtHome']) {
+        
     }
 }
+
+function currentPawnDet(id) {
+    alert(id);
+}
+
 
 //Part 2: DOM Manipulation
 /* function resetDOM() {
@@ -83,7 +91,7 @@ function render () {
                     document.getElementById('pos'+position).classList.remove('blue');
                     document.getElementById('pos'+position).classList.add(element.color);
             } else {
-                    document.getElementById('initial-'+element.color+'-'+i).innerHTML = '<i class="fas fa-chess-pawn"></i>';
+                    document.getElementById('initial-'+element.color+'-'+i).innerHTML = `<i onClick="currentPawnDet(this.id)" id="${element.color+i}" class="fas fa-chess-pawn"></i>`;
             }
         }
     }
