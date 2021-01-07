@@ -15,16 +15,18 @@ let players = [
     {
         userName: 'Nikolaos',
         color: 'yellow',
-        positions: [0,0,20,10],
+        positions: [0,0,0,0],
         allAtHome: true
     },
     {
         userName: 'Pio',
         color: 'blue',
-        positions: [3,2,3,4],
+        positions: [1,0,0,0],
         allAtHome: true
     }
 ];
+
+
 
 let currentPlayer = 0;
 
@@ -44,6 +46,14 @@ function diceChecker(dice) {
 }
 
 //Part 2: DOM Manipulation
+/* function resetDOM() {
+    for (let index = 1; index <= 40; index++) {
+        document.getElementById('pos'+position).classList.remove('white');
+        document.getElementById('pos'+position).innerHTML = '';
+    }
+} */
+
+
 function render () {
     //alert('Hey Render start to run!');
     for (let index = 0; index < players.length; index++) {
@@ -70,4 +80,3 @@ function showDice() {
     //diceChecker(rollDice());
     render();
 }
-
