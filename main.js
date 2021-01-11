@@ -3,26 +3,29 @@ let players = [
     {
         userName: 'Antonis',
         color: 'red',
+        //0 -> At home
+        //1-40 -> In the game
+        //-1- -4 -> In the end
         positions: [0,0,0,0],
-        allAtHome: true
+        activePawnCount: 0
     },
     {
         userName: 'James',
         color: 'green',
         positions: [0,0,0,0],
-        allAtHome: true
+        activePawnCount: 0
     },
     {
         userName: 'Nikolaos',
         color: 'yellow',
         positions: [0,0,0,0],
-        allAtHome: true
+        activePawnCount: 0
     },
     {
         userName: 'Pio',
         color: 'blue',
         positions: [0,0,0,0],
-        allAtHome: true
+        activePawnCount: 0
     }
 ];
 
@@ -30,6 +33,7 @@ const initialState = document.getElementById('main-board').innerHTML;
 
 let currentPlayer = 0;
 let currentPawn;
+let lastDice;
 
 function rollDice() {
     const dice =  Math.floor(Math.random() * 6) + 1;
@@ -51,12 +55,27 @@ function diceChecker(dice) {
     } else if (dice < 6  && !players[currentPlayer]['allAtHome']) {
         movePawn(currentPlayer, 0, dice);
     } else if (dice == 6  && !players[currentPlayer]['allAtHome']) {
-        
+        alert('You have 6 [lease chose a pawn!');
+        lastDice = dice;
+        if (currentPawn == undefined) {
+            
+        } else {
+            if (players[currentPlayer].positions[currentPawn] == 0) {
+                //TO-DO: Hey this works just for red color. Do for others too!
+                players[currentPlayer].positions[currentPawn] = 1;
+            } else {
+                players[currentPlayer].positions[currentPawn] += 6;
+            }
+        }
     }
 }
 
 function currentPawnDet(id) {
-    alert(id);
+    currentPawn = parseInt(id.slice(-1));
+    console.log(currentPawn);
+    diceChecker(lastDice);
+    render();
+    currentPawn = undefined;
 }
 
 
@@ -100,7 +119,7 @@ function render () {
 
 render();
 
-function showDice() {
+function iterateGame() {
     //alert(rollDice());
     diceChecker(rollDice());
     render();

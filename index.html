@@ -12,7 +12,17 @@
     <script async src="./main.js"></script>
 </head>
 <body>
-    <h1 onclick="showDice()">I don't know how to play Ludo <br> but I can code it <br> Let's click me to roll the dice</h1>
+    <header>
+        <div>
+            <h1>Current Player</h1>
+            <h1 id="player">Red</h1>
+        </div>
+        <h1 onclick="iterateGame()">I don't know how to play Ludo <br> but I can code it <br> Let's click me to roll the dice</h1>
+        <div>
+            <h1>Current Dice</h1>
+            <h1 id="dice">6</h1>
+        </div>
+    </header>
     <main>
         <div id="main-board">
 
