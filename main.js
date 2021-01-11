@@ -81,7 +81,7 @@ function render () {
 
                     
 
-                    document.getElementById('pos'+position).innerHTML = '<i class="fas fa-chess-pawn"></i>';
+                    document.getElementById('pos'+position).innerHTML = `<i onClick="currentPawnDet(this.id)" id="${element.color+i}" class="fas fa-chess-pawn"></i>`;
                     
                     console.log(document.getElementById('pos'+position).classList);
                     document.getElementById('pos'+position).classList.remove('white');
