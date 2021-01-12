@@ -46,7 +46,23 @@ function rollDice() {
 }
 
 function movePawn(player, pawnIndex, dice) {
-    players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
+    //Go from home to the game
+    if (players[player].positions[pawnIndex] == 0 && dice == 6) {
+        players[player].positions[pawnIndex] = 1 + player * 10;
+    } 
+    //Move around the game
+    else {
+        players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
+    }
+}
+
+function nextPawnHandler() {
+    for (let i = 0; i < players[currentPlayer].positions.length; i++) {
+        if(players[currentPlayer].positions[i]==0){
+            return i;
+        }
+        
+    }
 }
 
 function diceChecker(dice) {
@@ -58,9 +74,11 @@ function diceChecker(dice) {
         alert('Hey '+ players[currentPlayer]['userName'] +' Please wait for 6! You have ' + dice);
     } else if (dice == 6 && players[currentPlayer]['activePawnCount']  == 0) { 
         //First 6
-        //To-Do - 1: Shift user's pawn on to the own home
-        //To-Do - 3: Please check movePawn()
-        players[currentPlayer]['positions'] = [1,0,0,0];
+        
+        
+       
+        movePawn(currentPlayer, nextPawnHandler(), dice);
+        //players[currentPlayer]['positions'] = [1,0,0,0];
         players[currentPlayer].activePawnCount += 1;
         
         alert('Congrats you can go out!');
@@ -72,8 +90,9 @@ function diceChecker(dice) {
             alert('You have more than 1 pawns in the game! Please chose one to go');
         } else {
             if (players[currentPlayer].positions[currentPawn] == 0) {
-                //TO-DO - 4: Hey this works just for red color. Do for others too!
-                players[currentPlayer].positions[currentPawn] = 1;
+                
+                //players[currentPlayer].positions[currentPawn] = 1;
+                movePawn(currentPlayer, currentPawn, dice);
                 players[currentPlayer].activePawnCount += 1;
             } else {
                 players[currentPlayer].positions[currentPawn] += lastDice;
@@ -93,8 +112,8 @@ function diceChecker(dice) {
             alert('You have 6 please chose a pawn!');
         } else {
             if (players[currentPlayer].positions[currentPawn] == 0) {
-                //TO-DO: Hey this works just for red color. Do for others too!
-                players[currentPlayer].positions[currentPawn] = 1;
+                //TO-DO: update with movepawn()
+                movePawn(currentPlayer, currentPawn, dice);
                 players[currentPlayer].activePawnCount += 1;
             } else {
                 players[currentPlayer].positions[currentPawn] += 6;
