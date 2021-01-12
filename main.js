@@ -56,20 +56,23 @@ function diceChecker(dice) {
 
     if (dice < 6 && players[currentPlayer]['activePawnCount'] == 0 ) {
         alert('Hey '+ players[currentPlayer]['userName'] +' Please wait for 6! You have ' + dice);
-    } else if (dice == 6 && players[currentPlayer]['activePawnCount']  == 0) { //First 6
+    } else if (dice == 6 && players[currentPlayer]['activePawnCount']  == 0) { 
+        //First 6
+        //To-Do - 1: Shift user's pawn on to the own home
+        //To-Do - 3: Please check movePawn()
         players[currentPlayer]['positions'] = [1,0,0,0];
         players[currentPlayer].activePawnCount += 1;
-        activeRollCount--;
+        
         alert('Congrats you can go out!');
     } 
     else if (dice < 6  && players[currentPlayer]['activePawnCount'] > 1) {
         isLocked = true;
 
         if (currentPawn == undefined) {
-            
+            alert('You have more than 1 pawns in the game! Please chose one to go');
         } else {
             if (players[currentPlayer].positions[currentPawn] == 0) {
-                //TO-DO: Hey this works just for red color. Do for others too!
+                //TO-DO - 4: Hey this works just for red color. Do for others too!
                 players[currentPlayer].positions[currentPawn] = 1;
                 players[currentPlayer].activePawnCount += 1;
             } else {
@@ -79,14 +82,15 @@ function diceChecker(dice) {
 
 
     }else if (dice < 6  && players[currentPlayer]['activePawnCount'] == 1) {
+        //To-Do -5: Send the current pawn index instead of 0;
         movePawn(currentPlayer, 0, dice); 
     } else if (dice == 6  && players[currentPlayer]['activePawnCount'] > 0) {
-        alert('You have 6 please chose a pawn!');
+        
 
         isLocked = true;
         
         if (currentPawn == undefined) {
-            
+            alert('You have 6 please chose a pawn!');
         } else {
             if (players[currentPlayer].positions[currentPawn] == 0) {
                 //TO-DO: Hey this works just for red color. Do for others too!
@@ -102,6 +106,8 @@ function diceChecker(dice) {
 function currentPawnDet(id) {
     currentPawn = parseInt(id.slice(-1));
     //console.log(currentPawn);
+
+    //TO-DO - 2: Check user color and pawn color. If does not match, then alert a message
     if (isLocked) {
         diceChecker(lastDice);
         render();
@@ -162,7 +168,7 @@ function iterateGame() {
     
         //PLayer has more then 1 pawn in the game and should complete the round
         if (isLocked) {
-            alert('Hey you can not roll the dice. You should wait ' + players[currentPlayer].userName)
+            alert('Hey you can not roll the dice. You should wait ' + players[currentPlayer].userName);
         } else {
             //No pawn in game and player should roll 3 times
             if (players[currentPlayer].activePawnCount == 0 && activeRollCount < 3) {
