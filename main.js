@@ -112,6 +112,7 @@ function diceChecker(dice) {
     }else if (dice < 6  && players[currentPlayer]['activePawnCount'] == 1) {
         
         movePawn(currentPlayer, currentPawnHandler(), dice); 
+
     } else if (dice == 6  && players[currentPlayer]['activePawnCount'] > 0) {
         
 
@@ -121,7 +122,7 @@ function diceChecker(dice) {
             alert('You have 6 please chose a pawn!');
         } else {
             if (players[currentPlayer].positions[currentPawn] == 0) {
-                //TO-DO: update with movepawn()
+                
                 movePawn(currentPlayer, currentPawn, dice);
                 players[currentPlayer].activePawnCount += 1;
             } else {
@@ -133,10 +134,10 @@ function diceChecker(dice) {
 
 function currentPawnDet(id) {
     currentPawn = parseInt(id.slice(-1));
-    //console.log(currentPawn);
+    let currentColor = id.slice(0,-1);
+    //console.log(currentColorCapital);
 
-    //TO-DO - 2: Check user color and pawn color. If does not match, then alert a message
-    if (isLocked) {
+    if (isLocked && currentColor == players[currentPlayer].color) {
         diceChecker(lastDice);
         render();
     }
