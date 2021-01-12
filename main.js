@@ -65,6 +65,15 @@ function nextPawnHandler() {
     }
 }
 
+function currentPawnHandler() {
+    for (let i = 0; i < players[currentPlayer].positions.length; i++) {
+        if(players[currentPlayer].positions[i]>0){
+            return i;
+        }
+        
+    }
+}
+
 function diceChecker(dice) {
 
     lastDice = dice;
@@ -101,8 +110,8 @@ function diceChecker(dice) {
 
 
     }else if (dice < 6  && players[currentPlayer]['activePawnCount'] == 1) {
-        //To-Do -5: Send the current pawn index instead of 0;
-        movePawn(currentPlayer, 0, dice); 
+        
+        movePawn(currentPlayer, currentPawnHandler(), dice); 
     } else if (dice == 6  && players[currentPlayer]['activePawnCount'] > 0) {
         
 
