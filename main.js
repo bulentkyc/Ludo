@@ -48,12 +48,17 @@ function rollDice() {
 function movePawn(player, pawnIndex, dice) {
     //Go from home to the game
     if (players[player].positions[pawnIndex] == 0 && dice == 6) {
-        players[player].positions[pawnIndex] = 1 + player * 10;
-    } 
+            players[player].positions[pawnIndex] = 1 + player * 10;
     //Move around the game
-    else {
+    } else if ((dice + players[player].positions[pawnIndex]) / 40 > 1 + player * 10) {
+        //players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
+        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % 40);
+                
+    } else {
         players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
     }
+    
+    
 }
 
 function nextPawnHandler() {
@@ -104,7 +109,8 @@ function diceChecker(dice) {
                 movePawn(currentPlayer, currentPawn, dice);
                 players[currentPlayer].activePawnCount += 1;
             } else {
-                players[currentPlayer].positions[currentPawn] += lastDice;
+                //players[currentPlayer].positions[currentPawn] += lastDice;
+                movePawn(currentPlayer, currentPawn, dice);
             }
         }
 
@@ -126,7 +132,8 @@ function diceChecker(dice) {
                 movePawn(currentPlayer, currentPawn, dice);
                 players[currentPlayer].activePawnCount += 1;
             } else {
-                players[currentPlayer].positions[currentPawn] += 6;
+                //players[currentPlayer].positions[currentPawn] += 6;
+                movePawn(currentPlayer, currentPawn, dice);
             }
         }
     }
@@ -176,6 +183,8 @@ function render () {
                     document.getElementById('pos'+position).classList.remove('yellow');
                     document.getElementById('pos'+position).classList.remove('blue');
                     document.getElementById('pos'+position).classList.add(element.color);
+            } else if(position < 0) {
+                document.getElementById(element.color+'-pos'+position).innerHTML = `<i id="${element.color+i}" class="fas fa-chess-pawn"></i>`;
             } else {
                     document.getElementById('initial-'+element.color+'-'+i).innerHTML = `<i onClick="currentPawnDet(this.id)" id="${element.color+i}" class="fas fa-chess-pawn"></i>`;
             }
