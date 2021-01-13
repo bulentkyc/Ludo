@@ -47,12 +47,23 @@ function rollDice() {
 
 function pawnOverlapHandler(landingPos) {
 
-    
-    for (let i = 0; i < players[currentPlayer].positions.length; i++) {
-        if (players[currentPlayer].positions[i] == landingPos) {
-            return 'stop';
-        }        
+    for (let i = 0; i < players.length; i++) {
+        const player = players[i];
+        for (let x = 0; x < player.positions.length; x++) {
+            const pos = player.positions[x];
+
+            if (pos == landingPos) {
+                if (i == currentPlayer) {
+                    return 'stop';
+                } else {
+                    players[i].positions[x] = 0;
+                }
+            }
+            
+        }
+        
     }
+    
 
     return 'move';
 
