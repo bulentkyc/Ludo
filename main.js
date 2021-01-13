@@ -57,6 +57,7 @@ function pawnOverlapHandler(landingPos) {
                     return 'stop';
                 } else {
                     players[i].positions[x] = 0;
+                    players[i].activePawnCount --;
                 }
             }
             
