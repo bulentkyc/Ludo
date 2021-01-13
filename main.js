@@ -88,7 +88,7 @@ function movePawn(player, pawnIndex, dice) {
 
                     let newPos = -1 * ((dice + players[player].positions[pawnIndex]) % (40-((10*(4-player))%40)));
 
-                    if (pawnOverlapHandler(newPos) == 'stop') {
+                    if (pawnOverlapHandler(newPos) == 'stop' || newPos < -4) {
                         alert('Hey you can not do this!');
                         isMoveDone = false;
                     } else {
