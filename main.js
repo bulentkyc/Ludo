@@ -50,13 +50,17 @@ function movePawn(player, pawnIndex, dice) {
     if (players[player].positions[pawnIndex] == 0 && dice == 6) {
             players[player].positions[pawnIndex] = 1 + player * 10;
     //Move around the game
-    } else if ( players[currentPlayer].positions[pawnIndex] > 0
+    } else if ( players[player].positions[pawnIndex] > 0
                 && 
-                players[player].positions[pawnIndex] < currentPlayer*10+1
+                (
+                players[player].positions[pawnIndex] < player*10+1
+                ||
+                (player == 0) && (players[player].positions[pawnIndex] > 34)
+                )
                 && 
-                dice + players[player].positions[pawnIndex] >= currentPlayer*10+1) {
+                dice + players[player].positions[pawnIndex] >= player*10+1) {
 
-        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % (player*10));
+        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % (40-((10*(4-player))%40)));
     }
     
     
