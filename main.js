@@ -228,6 +228,8 @@ function currentPawnDet(id) {
 
 
 function render () {
+    document.getElementById('player').innerHTML = players[currentPlayer].userName;
+    document.getElementById('dice').innerHTML = lastDice;
     document.getElementById('main-board').innerHTML = initialState;
     //alert('Hey Render start to run!');
     for (let index = 0; index < players.length; index++) {
