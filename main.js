@@ -50,11 +50,22 @@ function movePawn(player, pawnIndex, dice) {
     if (players[player].positions[pawnIndex] == 0 && dice == 6) {
             players[player].positions[pawnIndex] = 1 + player * 10;
     //Move around the game
-    } else if ((dice + players[player].positions[pawnIndex]) / 40 > 1 + player * 10) {
+    } else if ( players[currentPlayer].positions[pawnIndex] > 0
+                && 
+                players[player].positions[pawnIndex] < currentPlayer*10+1
+                && 
+                dice + players[player].positions[pawnIndex] >= currentPlayer*10+1) {
+
+        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % (player*10));
+    }
+    
+    
+    /* else if ((dice + players[player].positions[pawnIndex]) / 40 > 1 || ((dice > -1 * (players[player].positions[pawnIndex] - (player * 10)>0)) )){
+        alert('hey');
         //players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
-        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % 40);
+        
                 
-    } else {
+    } */ else {
         players[player].positions[pawnIndex] = (players[player].positions[pawnIndex] + dice)%40;
     }
     
@@ -106,8 +117,8 @@ function diceChecker(dice) {
             if (players[currentPlayer].positions[currentPawn] == 0) {
                 
                 //players[currentPlayer].positions[currentPawn] = 1;
-                movePawn(currentPlayer, currentPawn, dice);
-                players[currentPlayer].activePawnCount += 1;
+                //movePawn(currentPlayer, currentPawn, dice);
+                //players[currentPlayer].activePawnCount += 1;
             } else {
                 //players[currentPlayer].positions[currentPawn] += lastDice;
                 movePawn(currentPlayer, currentPawn, dice);
