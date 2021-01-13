@@ -270,7 +270,7 @@ function iterateGame() {
 
     //Main case, like after first round
     if (roundCount > 0) {
-    
+        
         //PLayer has more then 1 pawn in the game and should complete the round
         if (isLocked) {
             alert('Hey you can not roll the dice. You should wait ' + players[currentPlayer].userName);
@@ -298,6 +298,14 @@ function iterateGame() {
     }
     //First round 
     else {
+
+        let playerCount = prompt('How many players will be? 2 or 4?');
+        
+        if (playerCount == 2) {
+            players[1].positions = [-1,-2,-3,-4];
+            players[3].positions = [-1,-2,-3,-4];
+        }
+    
        /* 
         let red = rollDice();
         let green = rollDice();
