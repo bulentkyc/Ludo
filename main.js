@@ -67,7 +67,14 @@ function movePawn(player, pawnIndex, dice) {
         alert('Hey you can not do this!');
         isMoveDone = false;
     } else if (players[player].positions[pawnIndex] == 0 && dice == 6) {
-            players[player].positions[pawnIndex] = 1 + player * 10;
+           
+            if ( pawnOverlapHandler(1 + player * 10) == 'stop') {
+                alert('Hey you can not do this!');
+                isMoveDone = false;
+            } else {
+                players[player].positions[pawnIndex] = 1 + player * 10;
+            }
+            
     //Move around the game
     } else if ( players[player].positions[pawnIndex] > 0
                 && 
@@ -79,7 +86,16 @@ function movePawn(player, pawnIndex, dice) {
                 && 
                 dice + players[player].positions[pawnIndex] >= player*10+1) {
 
-        players[player].positions[pawnIndex] = -1 * ((dice + players[player].positions[pawnIndex]) % (40-((10*(4-player))%40)));
+                    let newPos = -1 * ((dice + players[player].positions[pawnIndex]) % (40-((10*(4-player))%40)));
+
+                    if (pawnOverlapHandler(newPos) == 'stop') {
+                        alert('Hey you can not do this!');
+                        isMoveDone = false;
+                    } else {
+                        players[player].positions[pawnIndex] = newPos
+                    }
+
+        
     }
     
     
